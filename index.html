@@ -13,9 +13,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23edefe4'/%3E%3Ccircle cx='13' cy='16' r='7' fill='%2356661c'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23a9802a' fill-opacity='.85'/%3E%3C/svg%3E">
 <title>Julius Ertle KI-Beratung</title>
 <meta name="description" content="Julius Ertle: KI-Berater und Co-Founder von InnoSchool in Wien und Graz. KI-Workshops für Schulen, kostenlose Use-Case-Studien und Automatisierung für KMU.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Layout: one editorial column on a live olive vector-field ground; two tracks (education = brass, SMEs = olive) run through the whole page. */
 :root {
@@ -243,6 +241,12 @@ p { margin: 0; max-width: 64ch; }
 .contact .btn { background: var(--on-deep); color: #1c2013; border-color: var(--on-deep); }
 .contact .btn.ghost { background: transparent; color: var(--on-deep); }
 .contact .btn:hover { background: var(--gold); border-color: var(--gold); color: #1c2013; }
+.honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.consent { display: flex !important; gap: .7rem; align-items: start; text-transform: none !important; letter-spacing: 0 !important; font: 400 .88rem/1.45 var(--body) !important; }
+.consent input { width: 1.1rem !important; height: 1.1rem; flex: none; margin-top: .15rem; accent-color: var(--gold); padding: 0 !important; }
+.consent a { color: var(--gold); }
+footer a { text-decoration: none; } footer a:hover { color: var(--ink); text-decoration: underline; }
+#f-send[disabled] { opacity: .6; cursor: wait; }
 #copied, #formstatus { font: 400 .75rem/1.4 var(--mono); letter-spacing: .06em; color: var(--gold); }
 form.ask { display: grid; gap: .9rem; background: color-mix(in srgb, var(--on-deep) 6%, var(--deep)); border: 1px solid color-mix(in srgb, var(--on-deep) 18%, var(--deep)); padding: clamp(1.2rem, 3vw, 2rem); }
 form.ask .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
@@ -651,7 +655,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wr
         <button class="btn" id="copy" type="button"><span data-l="de">Kopieren</span><span data-l="en">Copy</span></button>
       </div>
       <div class="row">
-        <a class="btn ghost" href="https://www.linkedin.com/in/julius-ertle" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/julius-ertle/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         <span id="copied" role="status"></span>
       </div>
     </div>
@@ -667,17 +671,22 @@ footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wr
     </fieldset>
     <div class="two">
       <label for="f-name"><span data-l="de">Name</span><span data-l="en">Name</span><input id="f-name" name="name" autocomplete="name" required></label>
-      <label for="f-org"><span data-l="de">Schule / Unternehmen</span><span data-l="en">School / company</span><input id="f-org" name="org" autocomplete="organization"></label>
+      <label for="f-mail"><span data-l="de">E-Mail</span><span data-l="en">Email</span><input id="f-mail" name="mail" type="email" autocomplete="email" required></label>
     </div>
+    <label for="f-org"><span data-l="de">Schule / Unternehmen (optional)</span><span data-l="en">School / company (optional)</span><input id="f-org" name="org" autocomplete="organization"></label>
     <label for="f-msg"><span data-l="de">Worum geht es?</span><span data-l="en">What's it about?</span><textarea id="f-msg" name="msg" required></textarea></label>
-    <button class="btn" type="submit"><span data-l="de">Anfrage per E-Mail senden</span><span data-l="en">Send enquiry by email</span> <span aria-hidden="true">→</span></button>
+    <input type="text" name="_honey" id="f-honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="honey">
+    <label class="consent" for="f-ok"><input type="checkbox" id="f-ok" name="ok" required>
+      <span data-l="de">Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Mehr in der <a href="datenschutz.html">Datenschutzerklärung</a>.</span>
+      <span data-l="en">I agree that my details are used to handle this enquiry. See the <a href="datenschutz.html">privacy policy</a>.</span></label>
+    <button class="btn" type="submit" id="f-send"><span data-l="de">Anfrage senden</span><span data-l="en">Send enquiry</span> <span aria-hidden="true">→</span></button>
     <span id="formstatus" role="status"></span>
   </form>
 </div></section>
 
 <footer><div class="wrap">
   <span>© 2026 Julius Ertle · Wien &amp; Graz</span>
-  <span><a href="https://www.linkedin.com/in/julius-ertle" target="_blank" rel="noopener">LinkedIn</a> · <span class="ph">Impressum</span> · <span class="ph" data-l="de">Datenschutz</span><span class="ph" data-l="en">Privacy</span></span>
+  <span><a href="https://www.linkedin.com/in/julius-ertle/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html"><span data-l="de">Datenschutz</span><span data-l="en">Privacy</span></a></span>
 </div></footer>
 
 <div class="mcta" id="mcta"><a class="btn primary" href="#kontakt"><span data-l="de">Kostenloses Erstgespräch anfragen</span><span data-l="en">Request a free intro call</span></a></div>
@@ -735,18 +744,32 @@ footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wr
     try { navigator.clipboard.writeText(el.textContent.trim()).then(done, fallback); } catch (e) { fallback(); }
   });
 
-  // Enquiry form: opens the visitor's email app with a prepared message
-  const form = document.getElementById('ask'), fstat = document.getElementById('formstatus');
-  form.addEventListener('submit', (e) => {
+  // Enquiry form: sent straight to Julius's inbox via FormSubmit; falls back to the visitor's email app
+  const form = document.getElementById('ask'), fstat = document.getElementById('formstatus'), send = document.getElementById('f-send');
+  const TO = 'ertlejulius@gmail.com';
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = form.name.value.trim(), org = form.org.value.trim(), msg = form.msg.value.trim();
+    const name = form.name.value.trim(), mail = form.mail.value.trim(), org = form.org.value.trim(), msg = form.msg.value.trim();
     const topic = form.querySelector('input[name="topic"]:checked').value;
-    if (!name || !msg) { fstat.textContent = isEn() ? 'Please add your name and a short message.' : 'Bitte Name und eine kurze Nachricht eintragen.'; return; }
-    const subject = `Anfrage: ${topic}${org ? ' – ' + org : ''}`;
-    const body = `${msg}\n\n${name}${org ? '\n' + org : ''}`;
-    const href = `mailto:ertlejulius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    fstat.textContent = isEn() ? 'Opening your email app. If nothing happens, write to ertlejulius@gmail.com.' : 'Ihr E-Mail-Programm öffnet sich. Falls nicht, schreiben Sie an ertlejulius@gmail.com.';
-    window.location.href = href;
+    if (!name || !msg || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { fstat.textContent = isEn() ? 'Please add your name, a valid email and a short message.' : 'Bitte Name, gültige E-Mail und eine kurze Nachricht eintragen.'; return; }
+    if (!form.ok.checked) { fstat.textContent = isEn() ? 'Please tick the consent box.' : 'Bitte die Einwilligung anhaken.'; return; }
+    if (form._honey.value) return;
+    const subject = `Website-Anfrage: ${topic}${org ? ' – ' + org : ''}`;
+    send.disabled = true; fstat.textContent = isEn() ? 'Sending…' : 'Wird gesendet…';
+    try {
+      const r = await fetch(`https://formsubmit.co/ajax/${TO}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ Name: name, 'E-Mail': mail, Organisation: org || '–', Thema: topic, Nachricht: msg, _replyto: mail, _subject: subject, _template: 'table', _captcha: 'false' })
+      });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || 'send failed');
+      form.reset(); form.querySelector('#t-edu').checked = true;
+      fstat.textContent = isEn() ? 'Thank you! Your enquiry has been sent. I will get back to you shortly.' : 'Danke! Ihre Anfrage ist angekommen. Ich melde mich in Kürze bei Ihnen.';
+    } catch (err) {
+      const body = `${msg}\n\n${name}\n${mail}${org ? '\n' + org : ''}`;
+      fstat.textContent = isEn() ? `Couldn't send directly. Opening your email app instead, or write to ${TO}.` : `Direktversand nicht möglich. Ihr E-Mail-Programm öffnet sich, oder schreiben Sie an ${TO}.`;
+      window.location.href = `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    } finally { send.disabled = false; }
   });
 
   // Vector field: a grid of short strokes steered by a slow interference field, nudged by the pointer.
