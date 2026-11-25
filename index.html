@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#edefe4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12150c" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Julius Ertle · KI, die wirklich Sinn macht">
+<meta property="og:description" content="KI-Berater und Co-Founder von InnoSchool in Wien und Graz. KI-Workshops für Schulen, kostenlose Use-Case-Studien und Automatisierung für KMU.">
+<meta property="og:url" content="https://ertlejulius-ux.github.io/">
+<meta property="og:locale" content="de_AT">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23edefe4'/%3E%3Ccircle cx='13' cy='16' r='7' fill='%2356661c'/%3E%3Ccircle cx='20' cy='16' r='7' fill='%23a9802a' fill-opacity='.85'/%3E%3C/svg%3E">
+<title>Julius Ertle KI-Beratung</title>
+<meta name="description" content="Julius Ertle: KI-Berater und Co-Founder von InnoSchool in Wien und Graz. KI-Workshops für Schulen, kostenlose Use-Case-Studien und Automatisierung für KMU.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one editorial column on a live olive vector-field ground; two tracks (education = brass, SMEs = olive) run through the whole page. */
+:root {
+  --bg: #edefe4;
+  --surface: #f5f6ee;
+  --card: #fbfbf7;
+  --ink: #1c2013;
+  --muted: #5d644c;
+  --line: #cdd1bb;
+  --accent: #56661c;
+  --brass: #a9802a;
+  --deep: #2e3812;
+  --on-deep: #eef0e2;
+  --lime: #c9d77c;
+  --gold: #d8af55;
+  --field: #3d4818;
+  --ph: rgba(169, 128, 42, .16);
+  --display: "Syne", "Helvetica Neue", Arial, sans-serif;
+  --body: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col: 74rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12150c; --surface: #191d11; --card: #1d2214; --ink: #e8ebda; --muted: #9ba185; --line: #2c3220;
+    --accent: #a9bb5c; --brass: #d8af55; --deep: #222a0e; --on-deep: #eef0e2; --field: #c4cf92;
+    --ph: rgba(216, 175, 85, .18); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12150c; --surface: #191d11; --card: #1d2214; --ink: #e8ebda; --muted: #9ba185; --line: #2c3220;
+  --accent: #a9bb5c; --brass: #d8af55; --deep: #222a0e; --on-deep: #eef0e2; --field: #c4cf92;
+  --ph: rgba(216, 175, 85, .18); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+::selection { background: var(--brass); color: var(--bg); }
+
+body:not(.en) [data-l="en"], body.en [data-l="de"] { display: none !important; }
+
+.wrap {
+  max-width: var(--col); margin-inline: auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.label { font: 500 .72rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.ph { background: var(--ph); box-shadow: inset 0 -1px 0 var(--brass); border-radius: 2px; padding-inline: .15em; }
+
+/* Nav */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
+nav.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+nav.top.scrolled { border-bottom-color: var(--line); }
+nav.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; }
+.mark { font: 800 1.15rem/1 var(--display); letter-spacing: -.02em; text-decoration: none; display: flex; align-items: center; gap: .55rem; white-space: nowrap; }
+.mark i { width: .7rem; height: .7rem; background: var(--accent); display: inline-block; border-radius: 50%; box-shadow: .45rem 0 0 var(--brass); margin-right: .45rem; }
+.navr { display: flex; align-items: center; gap: 1.4rem; }
+nav.top ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.3rem; }
+nav.top ul a { font: 500 .76rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+nav.top ul a:hover { color: var(--ink); }
+@media (max-width: 900px) { nav.top ul { display: none; } }
+.lang { display: inline-flex; border: 1px solid var(--ink); flex: none; }
+.lang button { font: 500 .74rem/1 var(--mono); letter-spacing: .08em; padding: .5rem .6rem; border: 0; cursor: pointer; background: transparent; color: var(--ink); }
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.nav-cta { font: 500 .74rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: .6rem .85rem; background: var(--accent); color: var(--bg); white-space: nowrap; }
+@media (max-width: 560px) { .nav-cta { display: none; } }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero .wrap { position: relative; padding-block: clamp(3rem, 8vw, 7rem) clamp(2.5rem, 6vw, 4.5rem); display: grid; gap: 2rem; }
+.headline { display: grid; gap: 1rem; }
+.hero h1 {
+  font: 800 clamp(2.1rem, 6.4vw, 6rem)/.98 var(--display); letter-spacing: -.045em; margin: 0;
+  max-width: 15ch; text-wrap: balance;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero h1 u {
+  text-decoration: none; padding-bottom: .04em;
+  background: linear-gradient(var(--brass), var(--brass)) no-repeat 0 100% / 0% .11em;
+  animation: underline 1.1s cubic-bezier(.65,0,.25,1) .5s forwards;
+}
+@keyframes underline { to { background-size: 100% .11em; } }
+.hero .sub { font: 500 clamp(1rem, 2vw, 1.35rem)/1.2 var(--display); letter-spacing: -.01em; color: var(--muted); }
+.hero p.lede { margin: 0; max-width: 38rem; font-size: clamp(1.05rem, 1.6vw, 1.22rem); color: var(--muted); }
+.veil { background: color-mix(in srgb, var(--bg) 76%, transparent); }
+.ctas { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+.btn {
+  font: 500 .8rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  padding: 1rem 1.3rem; border: 1px solid var(--ink); display: inline-flex; align-items: center; gap: .7rem;
+  background: var(--bg); color: var(--ink); cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:hover { background: var(--brass); border-color: var(--brass); color: var(--bg); transform: translateY(-1px); }
+.ctas .hint { font-size: .9rem; color: var(--muted); }
+.tracks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; max-width: 48rem; }
+@media (max-width: 600px) { .tracks { grid-template-columns: minmax(0, 1fr); } }
+.track { position: relative; display: grid; gap: .45rem; padding: 1.1rem 3rem 1.2rem 1.2rem; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--accent); transition: border-color .2s, transform .2s; }
+.track.edu { border-top-color: var(--brass); }
+.track b { font: 700 1.08rem/1.25 var(--display); letter-spacing: -.02em; }
+.track .go { position: absolute; right: 1.1rem; bottom: 1.1rem; font: 500 1.1rem/1 var(--mono); color: var(--muted); transition: transform .2s; }
+.track:hover { border-color: var(--ink); transform: translateY(-2px); }
+.track:hover .go { transform: translateY(3px); color: var(--ink); }
+.meta { display: flex; gap: 1rem 2.6rem; flex-wrap: wrap; }
+.meta div { display: grid; gap: .3rem; }
+.meta b { font: 700 1.6rem/1 var(--display); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+
+/* Trust strip */
+.trust { border-bottom: 1px solid var(--line); }
+.trust .wrap { display: flex; flex-wrap: wrap; gap: .6rem 2.2rem; align-items: center; padding-block: 1.2rem; }
+.trust span.org { font: 700 1rem/1.2 var(--display); letter-spacing: -.01em; color: var(--muted); }
+
+/* Bands */
+section.band { border-bottom: 1px solid var(--line); scroll-margin-top: 4.5rem; }
+section.band > .wrap { padding-block: clamp(3.5rem, 8vw, 6.5rem); display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); gap: 1.5rem 4rem; }
+@media (max-width: 800px) { section.band > .wrap { grid-template-columns: minmax(0, 1fr); } }
+section.alt { background: var(--surface); }
+.side { display: grid; gap: .6rem; align-content: start; }
+.side .label { position: sticky; top: 5.5rem; }
+h2 { font: 700 clamp(1.8rem, 4.2vw, 3.2rem)/1.04 var(--display); letter-spacing: -.035em; margin: 0; text-wrap: balance; max-width: 20ch; }
+h2 em { font-style: normal; color: var(--accent); }
+h3 { font: 700 1.2rem/1.2 var(--display); letter-spacing: -.02em; margin: 0; }
+p { margin: 0; max-width: 64ch; }
+.stack { display: grid; gap: 1.4rem; min-width: 0; }
+.intro { font-size: 1.12rem; color: var(--muted); }
+.tone-edu { color: var(--brass); }
+.tone-sme { color: var(--accent); }
+.edu-band h2 em { color: var(--brass); }
+
+/* Vision */
+.vision-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+@media (max-width: 960px) { .vision-grid { grid-template-columns: minmax(0, 1fr); } }
+.facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.facts li { display: flex; justify-content: space-between; gap: 1rem; padding-block: .8rem; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.facts li > span:first-child { font: 400 .72rem/1.75 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); flex: none; }
+.facts li > span:last-child { text-align: right; min-width: 0; }
+.quote { border-left: 3px solid var(--brass); padding: .2rem 0 .2rem 1.2rem; font: 500 clamp(1.15rem, 2vw, 1.4rem)/1.4 var(--display); letter-spacing: -.01em; max-width: 40ch; }
+
+/* Why me */
+.reasons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+@media (max-width: 640px) { .reasons { grid-template-columns: minmax(0, 1fr); } }
+.reason { padding: 1.6rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: .6rem; align-content: start; background: var(--card); }
+.reason .n { font: 800 2.2rem/1 var(--display); letter-spacing: -.04em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.reason:nth-child(even) .n { color: var(--brass); }
+.reason p { color: var(--muted); font-size: .97rem; }
+
+/* Services */
+.price-note { display: flex; gap: .7rem 1.4rem; flex-wrap: wrap; align-items: center; font-size: .95rem; color: var(--muted); }
+.tag { font: 500 .68rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: .45rem .6rem; border: 1px solid currentColor; display: inline-block; white-space: nowrap; }
+.tag.free { color: var(--accent); }
+.tag.req { color: var(--brass); }
+.services { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+@media (max-width: 680px) { .services { grid-template-columns: minmax(0, 1fr); } }
+.svc { padding: 1.7rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; grid-template-rows: auto auto 1fr auto; gap: .8rem; transition: background .25s; background: var(--card); }
+.svc:hover { background: var(--surface); }
+.svc.wide { grid-column: 1 / -1; }
+.svc .top { display: flex; justify-content: space-between; align-items: start; gap: 1rem; }
+.svc .glyph { width: 2.2rem; height: 2.2rem; color: var(--accent); flex: none; }
+.edu-band .svc .glyph { color: var(--brass); }
+.svc p { color: var(--muted); font-size: .97rem; }
+.svc ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .93rem; display: grid; gap: .2rem; }
+.svc .out { font: 400 .72rem/1.5 var(--mono); color: var(--ink); letter-spacing: .04em; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { font: 500 .8rem/1 var(--mono); padding: .55rem .75rem; border: 1px solid var(--line); background: var(--card); letter-spacing: .02em; }
+
+/* Use cases */
+.usecases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 860px) { .usecases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .usecases { grid-template-columns: minmax(0, 1fr); } }
+.uc { border-top: 2px solid var(--accent); padding-top: .8rem; display: grid; gap: .3rem; align-content: start; }
+.uc b { font: 700 1rem/1.25 var(--display); }
+.uc span { font-size: .92rem; color: var(--muted); }
+
+/* Process */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); counter-reset: s; }
+@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+.steps li { counter-increment: s; padding: 1.3rem 1.3rem 1.5rem 0; border-top: 2px solid var(--accent); display: grid; gap: .55rem; align-content: start; }
+.steps li.paid { border-top-color: var(--brass); }
+.steps li::before { content: "0" counter(s); font: 500 .75rem/1 var(--mono); color: var(--muted); letter-spacing: .1em; }
+.steps li p { font-size: .94rem; color: var(--muted); }
+
+/* CV */
+.work { display: grid; border-top: 1px solid var(--line); }
+.case { display: grid; grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr) minmax(0, 10rem); gap: .4rem 1.5rem; padding-block: 1.5rem; border-bottom: 1px solid var(--line); align-items: baseline; }
+@media (max-width: 760px) { .case { grid-template-columns: minmax(0, 1fr); } }
+.case .when { font: 400 .74rem/1.5 var(--mono); letter-spacing: .08em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.case h3 { margin-bottom: .35rem; }
+.case .org { font-size: .9rem; color: var(--ink); margin-bottom: .35rem; font-weight: 500; }
+.case p { color: var(--muted); font-size: .95rem; }
+.case .kpi { font: 700 1.3rem/1.1 var(--display); letter-spacing: -.02em; color: var(--accent); overflow-wrap: anywhere; }
+.case .kpi.b { color: var(--brass); }
+.case .kpi small { display: block; font: 400 .68rem/1.4 var(--mono); letter-spacing: .06em; color: var(--muted); margin-top: .35rem; text-transform: uppercase; }
+.sub-h { font: 500 .72rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 1rem; }
+.paper { font-style: italic; }
+
+/* FAQ */
+.faq { border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 1.15rem 2.5rem 1.15rem 0; position: relative; font: 700 1.08rem/1.3 var(--display); letter-spacing: -.01em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: .2rem; top: 1rem; font: 400 1.4rem/1 var(--mono); color: var(--accent); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 1.2rem; color: var(--muted); }
+
+/* Contact */
+.contact { background: var(--deep); color: var(--on-deep); scroll-margin-top: 4.5rem; }
+.contact .wrap { padding-block: clamp(4rem, 9vw, 7rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+@media (max-width: 900px) { .contact .wrap { grid-template-columns: minmax(0, 1fr); } }
+.contact .label { color: color-mix(in srgb, var(--on-deep) 60%, var(--deep)); }
+.contact h2 { font-size: clamp(2.1rem, 5.4vw, 4.6rem); line-height: .98; max-width: 14ch; color: var(--on-deep); }
+.contact h2 em { color: var(--lime); }
+.contact p { color: color-mix(in srgb, var(--on-deep) 75%, var(--deep)); max-width: 46ch; }
+.contact .left { display: grid; gap: 1.6rem; align-content: start; }
+.direct { display: grid; gap: .8rem; }
+.direct .row { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; }
+.email { font: 500 clamp(.95rem, 2vw, 1.15rem)/1.2 var(--mono); padding: .9rem 1rem; border: 1px solid color-mix(in srgb, var(--on-deep) 35%, var(--deep)); user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.contact .btn { background: var(--on-deep); color: #1c2013; border-color: var(--on-deep); }
+.contact .btn.ghost { background: transparent; color: var(--on-deep); }
+.contact .btn:hover { background: var(--gold); border-color: var(--gold); color: #1c2013; }
+#copied, #formstatus { font: 400 .75rem/1.4 var(--mono); letter-spacing: .06em; color: var(--gold); }
+form.ask { display: grid; gap: .9rem; background: color-mix(in srgb, var(--on-deep) 6%, var(--deep)); border: 1px solid color-mix(in srgb, var(--on-deep) 18%, var(--deep)); padding: clamp(1.2rem, 3vw, 2rem); }
+form.ask .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+@media (max-width: 520px) { form.ask .two { grid-template-columns: minmax(0, 1fr); } }
+form.ask label { display: grid; gap: .35rem; font: 500 .7rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--on-deep) 70%, var(--deep)); }
+form.ask input, form.ask select, form.ask textarea {
+  font: 400 1rem/1.4 var(--body); color: var(--on-deep); background: color-mix(in srgb, #000 18%, var(--deep));
+  border: 1px solid color-mix(in srgb, var(--on-deep) 22%, var(--deep)); padding: .75rem .8rem; width: 100%; border-radius: 0; color-scheme: dark;
+}
+form.ask input:focus, form.ask select:focus, form.ask textarea:focus { outline: 2px solid var(--gold); outline-offset: 0; border-color: var(--gold); }
+form.ask textarea { min-height: 7.5rem; resize: vertical; }
+.seg { display: flex; flex-wrap: wrap; gap: .5rem; position: relative; }
+.seg input { position: absolute; left: 0; top: 0; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.seg label { cursor: pointer; padding: .55rem .8rem; border: 1px solid color-mix(in srgb, var(--on-deep) 30%, var(--deep)); color: var(--on-deep); letter-spacing: .06em; }
+.seg input:checked + label { background: var(--gold); border-color: var(--gold); color: #1c2013; }
+.seg input:focus-visible + label { outline: 2px solid var(--gold); outline-offset: 2px; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: .5rem; min-width: 0; }
+legend { font: 500 .7rem/1.3 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--on-deep) 70%, var(--deep)); padding: 0; margin-bottom: .5rem; }
+
+footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-block: 1.6rem; font: 400 .75rem/1.4 var(--mono); color: var(--muted); letter-spacing: .04em; }
+
+/* Mobile sticky CTA */
+.mcta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; padding: .7rem max(16px, env(safe-area-inset-right, 0px)) calc(.7rem + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .3s; display: none; }
+.mcta a { display: flex; justify-content: center; }
+.mcta.show { transform: none; }
+@media (max-width: 720px) { .mcta { display: block; } footer .wrap { padding-bottom: 5.5rem; } }
+
+/* Landscape phones: keep the hero compact */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero .wrap { padding-block: 2rem 2rem; gap: 1.4rem; }
+  .hero h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); max-width: 22ch; }
+  .mcta { display: none; }
+  .side .label { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+  .hero h1 u { animation: none; background-size: 100% .11em; }
+}
+</style>
+<style>body { margin: 0; } img { max-width: 100%; } :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }</style>
+</head>
+<body>
+<nav class="top" aria-label="Main"><div class="wrap">
+  <a class="mark" href="#top"><i aria-hidden="true"></i>Julius Ertle</a>
+  <div class="navr">
+    <ul>
+      <li><a href="#bildung"><span data-l="de">Bildung</span><span data-l="en">Education</span></a></li>
+      <li><a href="#kmu"><span data-l="de">KMU</span><span data-l="en">SMEs</span></a></li>
+      <li><a href="#warum"><span data-l="de">Warum ich</span><span data-l="en">Why me</span></a></li>
+      <li><a href="#ueber"><span data-l="de">Über mich</span><span data-l="en">About</span></a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" id="btn-de" aria-pressed="true">DE</button>
+      <button type="button" id="btn-en" aria-pressed="false">EN</button>
+    </div>
+    <a class="nav-cta" href="#kontakt"><span data-l="de">Anfragen</span><span data-l="en">Get in touch</span></a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="label veil" data-l="de">KI-Berater · Co-Founder InnoSchool · Wien &amp; Graz</span>
+    <span class="label veil" data-l="en">AI consultant · Co-founder of InnoSchool · Vienna &amp; Graz</span>
+    <div class="headline">
+      <h1 data-l="de">Künstliche Intelligenz, die <u>wirklich</u> <em>Sinn</em> macht.</h1>
+      <h1 data-l="en">Artificial intelligence that <u>really</u> <em>makes sense</em>.</h1>
+      <span class="sub veil" data-l="de">In Bildung und KMU.</span><span class="sub veil" data-l="en">In education and SMEs.</span>
+    </div>
+    <p class="lede veil" data-l="de">Ich helfe Schulen und Unternehmen, KI verantwortungsvoll und mit echtem Nutzen einzusetzen. Verständlich erklärt, ethisch durchdacht und so umgesetzt, dass es auch in einem Jahr noch läuft.</p>
+    <p class="lede veil" data-l="en">I help schools and businesses use AI responsibly and to real effect. Clearly explained, ethically thought through, and built so it still works a year from now.</p>
+    <div class="ctas">
+      <a class="btn primary" href="#kontakt"><span data-l="de">Kostenloses Erstgespräch</span><span data-l="en">Free intro call</span> <span aria-hidden="true">→</span></a>
+      <span class="hint veil" data-l="de">30 Minuten, unverbindlich.</span><span class="hint veil" data-l="en">30 minutes, no strings attached.</span>
+    </div>
+    <div class="tracks">
+      <a class="track edu" href="#bildung">
+        <span class="label" data-l="de">Für Schulen &amp; Bildung</span><span class="label" data-l="en">For schools &amp; education</span>
+        <b data-l="de">KI-Workshops, KI-Didaktik und Innovations-Coaching</b><b data-l="en">AI workshops, AI didactics and innovation coaching</b>
+        <span class="go" aria-hidden="true">↓</span>
+      </a>
+      <a class="track sme" href="#kmu">
+        <span class="label" data-l="de">Für KMU</span><span class="label" data-l="en">For SMEs</span>
+        <b data-l="de">Kostenlose Use-Case-Studie, dann Automatisierung</b><b data-l="en">Free use case study, then automation</b>
+        <span class="go" aria-hidden="true">↓</span>
+      </a>
+    </div>
+    <div class="meta">
+      <div class="veil"><b>~100</b><span class="label" data-l="de">Workshops pro Jahr</span><span class="label" data-l="en">Workshops per year</span></div>
+      <div class="veil"><b>15</b><span class="label" data-l="de">Mitglieder InnoSchool</span><span class="label" data-l="en">InnoSchool members</span></div>
+      <div class="veil"><b>3</b><span class="label" data-l="de">Bundesländer</span><span class="label" data-l="en">Austrian states</span></div>
+      <div class="veil"><b>0 €</b><span class="label" data-l="de">für Ihre Use-Case-Studie</span><span class="label" data-l="en">for your use case study</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="trust"><div class="wrap">
+  <span class="label" data-l="de">Erfahrung aus</span><span class="label" data-l="en">Experience from</span>
+  <span class="org">InnoSchool</span>
+  <span class="org">FH Campus 02</span>
+  <span class="org" data-l="de">Universität Graz</span><span class="org" data-l="en">University of Graz</span>
+  <span class="org">GoldenMind</span>
+  <span class="org">UniCredit Bank Austria</span>
+</div></div>
+
+<section class="band" id="vision"><div class="wrap">
+  <div class="side"><span class="label">Vision</span></div>
+  <div class="vision-grid">
+    <div class="stack">
+      <h2 data-l="de">KI im Bildungssystem und in KMU. <em>Sinnvoll und nachhaltig.</em></h2>
+      <h2 data-l="en">AI in education and SMEs. <em>Useful and sustainable.</em></h2>
+      <p data-l="de">Ich bin Julius Ertle, Co-Founder und Innovation Coach von InnoSchool an der FH Campus 02 in Graz und dort verantwortlich für das Thema KI. Seit 2025 haben wir InnoSchool von 2 auf 15 Mitglieder und von 3 auf rund 100 Workshops im Jahr ausgebaut, inzwischen in drei Bundesländern.</p>
+      <p data-l="en">I'm Julius Ertle, co-founder and innovation coach of InnoSchool at FH Campus 02 in Graz, where I'm responsible for AI. Since 2025 we've grown InnoSchool from 2 to 15 members and from 3 to around 100 workshops a year, now across three Austrian states.</p>
+      <p data-l="de">Dabei sehe ich jeden Tag, wie groß die Lücke ist zwischen dem, was KI heute kann, und dem, was in Klassenzimmern und Betrieben tatsächlich ankommt. Diese Lücke möchte ich schließen, mit Lösungen, die verstanden und verantwortungsvoll eingesetzt werden, und mit dem Anspruch, dass Österreich und Europa dabei technologisch souverän bleiben.</p>
+      <p data-l="en">That work shows me every day how wide the gap is between what AI can do and what actually reaches classrooms and businesses. I want to close that gap with solutions people understand and use responsibly, and with the goal that Austria and Europe stay technologically sovereign along the way.</p>
+      <p class="quote" data-l="de">Technik allein reicht nicht. KI wirkt erst, wenn Menschen sie verstehen, ihr vertrauen und sie verantwortungsvoll einsetzen.</p>
+      <p class="quote" data-l="en">Technology alone isn't enough. AI only works when people understand it, trust it and use it responsibly.</p>
+    </div>
+    <ul class="facts">
+      <li><span data-l="de">Rolle</span><span data-l="en">Role</span><span data-l="de">Co-Founder, KI-Verantwortlicher InnoSchool</span><span data-l="en">Co-founder, AI lead at InnoSchool</span></li>
+      <li><span data-l="de">Fokus</span><span data-l="en">Focus</span><span data-l="de">KI in Bildung und KMU</span><span data-l="en">AI in education and SMEs</span></li>
+      <li><span data-l="de">Schwerpunkte</span><span data-l="en">Specialties</span><span data-l="de">KI-Ethik, KI-Didaktik</span><span data-l="en">AI ethics, AI didactics</span></li>
+      <li><span data-l="de">Modelle</span><span data-l="en">Models</span><span>Claude, ChatGPT (Codex), Gemini</span></li>
+      <li><span data-l="de">Technik</span><span data-l="en">Tech</span><span data-l="de">KI-Workflows, Python</span><span data-l="en">AI workflows, Python</span></li>
+      <li><span data-l="de">Standorte</span><span data-l="en">Based in</span><span data-l="de">Wien und Graz</span><span data-l="en">Vienna and Graz</span></li>
+      <li><span data-l="de">Sprachen</span><span data-l="en">Languages</span><span data-l="de">Deutsch, Englisch</span><span data-l="en">German, English</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="band alt" id="warum"><div class="wrap">
+  <div class="side"><span class="label" data-l="de">Warum ich</span><span class="label" data-l="en">Why me</span></div>
+  <div class="stack">
+    <h2 data-l="de">Vier Gründe, warum <em>Zusammenarbeit</em> mit mir funktioniert.</h2>
+    <h2 data-l="en">Four reasons <em>working with me</em> works.</h2>
+    <div class="reasons">
+      <div class="reason"><span class="n">~100</span>
+        <h3 data-l="de">Erprobt in der Praxis</h3><h3 data-l="en">Proven in practice</h3>
+        <p data-l="de">Rund 100 Workshops im Jahr mit InnoSchool. Ich weiß, wie man komplexe Themen so vermittelt, dass sie hängen bleiben, egal ob vor Schüler:innen oder Geschäftsführung.</p>
+        <p data-l="en">Around 100 workshops a year with InnoSchool. I know how to explain complex topics so they stick, whether to students or to management.</p></div>
+      <div class="reason"><span class="n">LLM</span>
+        <h3 data-l="de">Technik wirklich verstanden</h3><h3 data-l="en">Technology truly understood</h3>
+        <p data-l="de">Meine wissenschaftliche Arbeit behandelt Aufbau, Funktionsweise und Forschungstrends großer Sprachmodelle. Ich erkläre nicht nur Tools, sondern was dahinter passiert.</p>
+        <p data-l="en">My academic paper covers the architecture, inner workings and research trends of large language models. I don't just explain tools, I explain what happens underneath.</p></div>
+      <div class="reason"><span class="n">§</span>
+        <h3 data-l="de">Ethik und Recht mitgedacht</h3><h3 data-l="en">Ethics and law built in</h3>
+        <p data-l="de">Micro-Degree „AI and Society“ und Studium im Wirtschaftsrecht an der Universität Graz. Fragen zu Verantwortung, Datenschutz und EU AI Act gehören bei mir von Anfang an dazu.</p>
+        <p data-l="en">Micro-degree “AI and Society” and studies in business law at the University of Graz. Responsibility, data protection and the EU AI Act are part of the conversation from day one.</p></div>
+      <div class="reason"><span class="n">3+</span>
+        <h3 data-l="de">Unabhängig von Anbietern</h3><h3 data-l="en">Vendor-independent</h3>
+        <p data-l="de">Ich arbeite mit Claude, ChatGPT (Codex), Gemini und weiteren Modellen und empfehle das, was für Sie passt, nicht das, was gerade im Trend liegt.</p>
+        <p data-l="en">I work with Claude, ChatGPT (Codex), Gemini and other models, and recommend what fits you, not whatever is trending.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band edu-band" id="bildung"><div class="wrap">
+  <div class="side"><span class="label tone-edu" data-l="de">Bildung</span><span class="label tone-edu" data-l="en">Education</span></div>
+  <div class="stack">
+    <h2 data-l="de">Für Schulen und Hochschulen: <em>KI verstehen, nicht nur benutzen.</em></h2>
+    <h2 data-l="en">For schools and universities: <em>understand AI, don't just use it.</em></h2>
+    <p class="intro" data-l="de">Mit InnoSchool halten wir rund 100 Workshops, Coachings und Pitch-Trainings im Jahr für Junior Companies und Schulprojekte. Diese Erfahrung verbinde ich mit KI-Ethik und KI-Didaktik zu Workshops, die zu Ihrer Schule passen.</p>
+    <p class="intro" data-l="en">With InnoSchool we run around 100 workshops, coaching sessions and pitch trainings a year for Junior Companies and school projects. I combine that experience with AI ethics and AI didactics in workshops tailored to your school.</p>
+    <div class="services">
+      <article class="svc">
+        <div class="top">
+          <svg class="glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11l13-6 13 6-13 6z"/><path d="M8 13.5v6c0 2 3.6 4 8 4s8-2 8-4v-6"/><path d="M29 11v8"/></svg>
+          <span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span>
+        </div>
+        <h3 data-l="de">KI-Workshops für Schüler:innen</h3><h3 data-l="en">AI workshops for students</h3>
+        <p data-l="de">Interaktiv, praxisnah und auf die Schulstufe abgestimmt.</p>
+        <p data-l="en">Interactive, hands-on and matched to the age group.</p>
+        <ul data-l="de"><li>Wie funktionieren Sprachmodelle eigentlich?</li><li>Wo liegen Grenzen, Fehler und Risiken?</li><li>KI kritisch und kreativ fürs Lernen nutzen</li></ul>
+        <ul data-l="en"><li>How do language models actually work?</li><li>Where are the limits, errors and risks?</li><li>Using AI critically and creatively for learning</li></ul>
+        <span class="out" data-l="de">Format: <span class="ph">halbtags / ganztags, vor Ort</span></span><span class="out" data-l="en">Format: <span class="ph">half or full day, on site</span></span>
+      </article>
+      <article class="svc">
+        <div class="top">
+          <svg class="glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10" cy="12" r="4"/><circle cx="22" cy="12" r="4"/><path d="M3 26c1-4 4-6 7-6s6 2 7 6M15 26c1-4 4-6 7-6s6 2 7 6"/></svg>
+          <span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span>
+        </div>
+        <h3 data-l="de">KI-Didaktik für Lehrkräfte</h3><h3 data-l="en">AI didactics for teachers</h3>
+        <p data-l="de">Wie Lehrkräfte KI sinnvoll in Vorbereitung und Unterricht einsetzen.</p>
+        <p data-l="en">How teachers can use AI well in lesson planning and teaching.</p>
+        <ul data-l="de"><li>Didaktische Konzepte und konkrete Unterrichtsbeispiele</li><li>Ethische Leitlinien und klare Regeln für die Klasse</li><li>Datenschutz und rechtlicher Rahmen</li></ul>
+        <ul data-l="en"><li>Teaching concepts and concrete classroom examples</li><li>Ethical guidelines and clear class rules</li><li>Data protection and the legal framework</li></ul>
+        <span class="out" data-l="de">Ergebnis: Workshop + Leitfaden</span><span class="out" data-l="en">Output: workshop + guide</span>
+      </article>
+      <article class="svc wide">
+        <div class="top">
+          <svg class="glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16 4v6M16 22v6M4 16h6M22 16h6"/><circle cx="16" cy="16" r="5"/></svg>
+          <span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span>
+        </div>
+        <h3 data-l="de">Innovations-Coaching und Pitch-Training</h3><h3 data-l="en">Innovation coaching and pitch training</h3>
+        <p data-l="de">Begleitung für Junior Companies und Schulprojekte: von der Idee über das Geschäftsmodell bis zum überzeugenden Pitch, auf Wunsch mit KI als Werkzeug für Recherche, Prototypen und Präsentation.</p>
+        <p data-l="en">Support for Junior Companies and school projects: from idea to business model to a convincing pitch, with AI as a tool for research, prototyping and presenting if you like.</p>
+        <span class="out" data-l="de">Erprobt in rund 100 Workshops pro Jahr bei InnoSchool</span><span class="out" data-l="en">Proven in around 100 workshops a year at InnoSchool</span>
+      </article>
+    </div>
+    <div class="chips" aria-label="Modelle">
+      <span class="label" style="align-self:center" data-l="de">Workshops zu</span><span class="label" style="align-self:center" data-l="en">Workshops on</span>
+      <span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Codex</span><span class="chip">Gemini</span><span class="chip" data-l="de">und weiteren</span><span class="chip" data-l="en">and more</span>
+    </div>
+  </div>
+</div></section>
+
+<section class="band alt" id="kmu"><div class="wrap">
+  <div class="side"><span class="label tone-sme" data-l="de">KMU</span><span class="label tone-sme" data-l="en">SMEs</span></div>
+  <div class="stack">
+    <h2 data-l="de">Für kleine und mittlere Unternehmen: <em>erst verstehen, dann umsetzen.</em></h2>
+    <h2 data-l="en">For small and mid-sized businesses: <em>understand first, then build.</em></h2>
+    <div class="price-note">
+      <span><span class="tag free" data-l="de">Kostenlos</span><span class="tag free" data-l="en">Free</span></span>
+      <span data-l="de">Erstgespräch und Use-Case-Studie kosten nichts.</span><span data-l="en">The first call and the use case study cost nothing.</span>
+      <span><span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span></span>
+      <span data-l="de">Bezahlt wird erst, wenn wir ein Projekt umsetzen.</span><span data-l="en">You only pay once we build a project.</span>
+    </div>
+    <div class="services">
+      <article class="svc">
+        <div class="top">
+          <svg class="glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="12"/><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="1.5" fill="currentColor"/></svg>
+          <span class="tag free" data-l="de">Kostenlos</span><span class="tag free" data-l="en">Free</span>
+        </div>
+        <h3 data-l="de">Use-Case-Studie</h3><h3 data-l="en">Use case study</h3>
+        <p data-l="de">Ich analysiere Ihre Abläufe und zeige, wo KI und Automatisierung konkret Zeit sparen, mit Aufwand, Nutzen und Risiken auf einen Blick. Sie behalten das Ergebnis, auch wenn wir danach nicht weiterarbeiten.</p>
+        <p data-l="en">I analyse your workflows and show exactly where AI and automation save time, with effort, benefit and risks at a glance. The results are yours to keep, even if we don't continue.</p>
+        <span class="out" data-l="de">Ergebnis: priorisierte Use Cases</span><span class="out" data-l="en">Output: prioritised use cases</span>
+      </article>
+      <article class="svc">
+        <div class="top">
+          <svg class="glyph" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 22l8-8 6 6 10-12"/><path d="M22 8h6v6"/></svg>
+          <span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span>
+        </div>
+        <h3 data-l="de">Automatisierung und Umsetzung</h3><h3 data-l="en">Automation and implementation</h3>
+        <p data-l="de">Aus dem besten Use Case wird eine laufende Lösung, angebunden an Ihre Tools, datenschutzkonform und mit Schulung für Ihr Team.</p>
+        <p data-l="en">The strongest use case becomes a working system, connected to your tools, privacy-compliant and with training for your team.</p>
+        <span class="out" data-l="de">Ergebnis: laufende Lösung + Übergabe</span><span class="out" data-l="en">Output: running system + handover</span>
+      </article>
+    </div>
+    <span class="sub-h" data-l="de">Typische Use Cases</span><span class="sub-h" data-l="en">Typical use cases</span>
+    <div class="usecases">
+      <div class="uc"><b data-l="de">E-Mails und Anfragen</b><b data-l="en">Email and enquiries</b><span data-l="de">Vorsortieren, zusammenfassen, Antwortentwürfe</span><span data-l="en">Triage, summaries, draft replies</span></div>
+      <div class="uc"><b data-l="de">Dokumente</b><b data-l="en">Documents</b><span data-l="de">Rechnungen, Verträge, Formulare auslesen</span><span data-l="en">Extracting invoices, contracts, forms</span></div>
+      <div class="uc"><b data-l="de">Content und Social Media</b><b data-l="en">Content and social media</b><span data-l="de">Texte, Posts und Newsletter schneller erstellen</span><span data-l="en">Faster copy, posts and newsletters</span></div>
+      <div class="uc"><b data-l="de">Internes Wissen</b><b data-l="en">Internal knowledge</b><span data-l="de">Ein Assistent, der Ihre Unterlagen kennt</span><span data-l="en">An assistant that knows your documents</span></div>
+      <div class="uc"><b data-l="de">Angebote und Berichte</b><b data-l="en">Proposals and reports</b><span data-l="de">Erste Entwürfe aus Notizen und Daten</span><span data-l="en">First drafts from notes and data</span></div>
+      <div class="uc"><b data-l="de">Team-Schulung</b><b data-l="en">Team training</b><span data-l="de">KI-Tools im Alltag sicher nutzen</span><span data-l="en">Using AI tools safely day to day</span></div>
+    </div>
+    <span class="sub-h" data-l="de">So läuft es ab</span><span class="sub-h" data-l="en">How it works</span>
+    <ol class="steps">
+      <li><h3 data-l="de">Gespräch</h3><h3 data-l="en">Call</h3>
+        <span class="tag free" data-l="de">Kostenlos</span><span class="tag free" data-l="en">Free</span>
+        <p data-l="de">30 Minuten zu Ihren Abläufen, Zielen und Fragen.</p><p data-l="en">30 minutes on your workflows, goals and questions.</p></li>
+      <li><h3 data-l="de">Use-Case-Studie</h3><h3 data-l="en">Use case study</h3>
+        <span class="tag free" data-l="de">Kostenlos</span><span class="tag free" data-l="en">Free</span>
+        <p data-l="de">Ich zeige, wo KI wirklich hilft, und was die Umsetzung kosten würde.</p><p data-l="en">I show where AI really helps, and what building it would cost.</p></li>
+      <li class="paid"><h3 data-l="de">Umsetzung</h3><h3 data-l="en">Build</h3>
+        <span class="tag req" data-l="de">Auf Anfrage</span><span class="tag req" data-l="en">On request</span>
+        <p data-l="de">Nur wenn Sie überzeugt sind: Ich baue die Lösung mit Ihren echten Daten.</p><p data-l="en">Only if you're convinced: I build the solution with your real data.</p></li>
+      <li class="paid"><h3 data-l="de">Übergabe</h3><h3 data-l="en">Handover</h3>
+        <span class="tag req" data-l="de">Inklusive</span><span class="tag req" data-l="en">Included</span>
+        <p data-l="de">Dokumentation und Schulung, damit Ihr Team selbstständig weiterarbeitet.</p><p data-l="en">Documentation and training so your team can carry on independently.</p></li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="band" id="souveraenitaet"><div class="wrap">
+  <div class="side"><span class="label" data-l="de">Engagement</span><span class="label" data-l="en">Commitment</span></div>
+  <div class="stack">
+    <h2 data-l="de">KI-Souveränität für <em>Österreich und die EU.</em></h2>
+    <h2 data-l="en">AI sovereignty for <em>Austria and the EU.</em></h2>
+    <p class="intro" data-l="de">Europa sollte bei KI nicht nur Anwender sein. Ich arbeite gerne an Projekten mit, die unsere Unabhängigkeit stärken: offene und europäische Modelle, vertrauenswürdige Infrastruktur und verantwortungsvoller Einsatz im öffentlichen Bereich, im Einklang mit dem EU AI Act.</p>
+    <p class="intro" data-l="en">Europe shouldn't only be a user of AI. I'd like to contribute to projects that strengthen our independence: open and European models, trustworthy infrastructure and responsible use in the public sector, in line with the EU AI Act.</p>
+    <p data-l="de">Initiativen, Forschungsgruppen und öffentliche Einrichtungen können mich jederzeit ansprechen.</p>
+    <p data-l="en">Initiatives, research groups and public bodies are welcome to get in touch.</p>
+  </div>
+</div></section>
+
+<section class="band alt" id="ueber"><div class="wrap">
+  <div class="side"><span class="label" data-l="de">Über mich</span><span class="label" data-l="en">About</span></div>
+  <div class="stack">
+    <h2 data-l="de">Werdegang und Ausbildung.</h2>
+    <h2 data-l="en">Experience and education.</h2>
+    <span class="sub-h" data-l="de">Erfahrung</span><span class="sub-h" data-l="en">Experience</span>
+    <div class="work">
+      <article class="case">
+        <span class="when" data-l="de">2025 – heute</span><span class="when" data-l="en">2025 – today</span>
+        <div><h3>Co-Founder &amp; Innovation Coach</h3><div class="org">InnoSchool · FH Campus 02, Graz</div>
+          <p data-l="de">Aufbau und strategische Leitung der Initiative, verantwortlich für KI. Team von 2 auf 15 Mitglieder, Ausweitung auf drei Bundesländer. Konzeption und Durchführung von Workshops, Coachings und Pitch-Trainings für Junior Companies und Schulprojekte.</p>
+          <p data-l="en">Built and lead the initiative, responsible for AI. Grew the team from 2 to 15 members and expanded to three Austrian states. Design and delivery of workshops, coaching and pitch trainings for Junior Companies and school projects.</p></div>
+        <span class="kpi">~100<small data-l="de">Workshops pro Jahr</small><small data-l="en">workshops per year</small></span>
+      </article>
+      <article class="case">
+        <span class="when">2026</span>
+        <div><h3 data-l="de">Assistenz Administration, Social Media &amp; AI Workflows</h3><h3 data-l="en">Assistant, administration, social media &amp; AI workflows</h3><div class="org">Mindful Innovation @ GoldenMind, Graz</div>
+          <p data-l="de">Einsatz von KI-Tools, um Content- und Organisationsaufgaben effizienter zu erledigen, und Unterstützung digitaler Arbeitsabläufe.</p>
+          <p data-l="en">Using AI tools to handle content and organisational tasks more efficiently, and supporting digital workflows.</p></div>
+        <span class="kpi b" data-l="de">KI im Alltag</span><span class="kpi b" data-l="en">AI at work</span>
+      </article>
+      <article class="case">
+        <span class="when">2023</span>
+        <div><h3 data-l="de">Praktikum Customer Service</h3><h3 data-l="en">Customer service internship</h3><div class="org">UniCredit Bank Austria, Villach</div>
+          <p data-l="de">Kundenberatung und Einführung von Kund:innen in digitale Banking-Lösungen, CRM-Pflege.</p>
+          <p data-l="en">Advising customers and introducing them to digital banking, CRM maintenance.</p></div>
+        <span class="kpi" data-l="de">Digital</span><span class="kpi" data-l="en">Digital</span>
+      </article>
+      <article class="case">
+        <span class="when">2022</span>
+        <div><h3 data-l="de">Praktikum Public Relations</h3><h3 data-l="en">Public relations internship</h3><div class="org">SPD-Landesverband Niedersachsen, Hannover</div>
+          <p data-l="de">Mitorganisation von Veranstaltungen und Kampagnen, Content-Erstellung und Medienanalyse.</p>
+          <p data-l="en">Co-organising events and campaigns, content creation and media analysis.</p></div>
+        <span class="kpi b">PR</span>
+      </article>
+    </div>
+    <span class="sub-h" data-l="de">Ausbildung und Forschung</span><span class="sub-h" data-l="en">Education and research</span>
+    <div class="work">
+      <article class="case">
+        <span class="when">2026</span>
+        <div><h3 data-l="de">Wissenschaftliche Arbeit</h3><h3 data-l="en">Academic paper</h3>
+          <div class="org paper">„Large Language Models: Technischer Aufbau, Funktionsweise und aktuelle Forschungstrends“</div>
+          <p data-l="de">Wie große Sprachmodelle aufgebaut sind, wie sie Texte erzeugen und wohin sich die Forschung gerade bewegt.</p>
+          <p data-l="en">How large language models are built, how they generate text, and where research is heading.</p></div>
+        <span class="kpi b">LLMs</span>
+      </article>
+      <article class="case">
+        <span class="when">2025 – 2026</span>
+        <div><h3>Micro-Degree „AI and Society“</h3><div class="org" data-l="de">Universität Graz · 16 ECTS</div><div class="org" data-l="en">University of Graz · 16 ECTS</div>
+          <p data-l="de">Technische Grundlagen der KI sowie ihre ethischen, rechtlichen, wirtschaftlichen und didaktischen Aspekte, abgeschlossen mit einem interdisziplinären Praxisprojekt.</p>
+          <p data-l="en">Technical foundations of AI and its ethical, legal, economic and educational aspects, completed with an interdisciplinary practical project.</p></div>
+        <span class="kpi" data-l="de">Abgeschlossen</span><span class="kpi" data-l="en">Completed</span>
+      </article>
+      <article class="case">
+        <span class="when" data-l="de">2024 – heute</span><span class="when" data-l="en">2024 – today</span>
+        <div><h3>BSc Wirtschaftsingenieurwesen</h3><div class="org">FH Campus 02, Graz · Innovationsmanagement</div>
+          <p data-l="de">Technik, Wirtschaft und Innovationsmanagement: Geschäftsmodelle, Projektmanagement und strategische Innovation.</p>
+          <p data-l="en">Engineering, business and innovation management: business models, project management and strategic innovation.</p></div>
+        <span class="kpi" data-l="de">Laufend</span><span class="kpi" data-l="en">Ongoing</span>
+      </article>
+      <article class="case">
+        <span class="when">2025 – 2026</span>
+        <div><h3 data-l="de">Studium Wirtschaftsrecht</h3><h3 data-l="en">Business law studies</h3><div class="org" data-l="de">Universität Graz · Gesellschaft im Digitalen Wandel</div><div class="org" data-l="en">University of Graz · Society in Digital Transformation</div>
+          <p data-l="de">Grundlagen im Wirtschafts- und Digitalrecht, die mir helfen, KI-Projekte auch rechtlich mitzudenken.</p>
+          <p data-l="en">Foundations in business and digital law that help me think through AI projects legally as well.</p></div>
+        <span class="kpi b">§</span>
+      </article>
+      <article class="case">
+        <span class="when">2019 – 2024</span>
+        <div><h3 data-l="de">Matura, Kommunikations- und Mediendesign</h3><h3 data-l="en">School diploma, communication and media design</h3><div class="org">CHS Villach</div>
+          <p data-l="de">Gestaltung und Kommunikation, die Basis dafür, Inhalte klar und ansprechend aufzubereiten.</p>
+          <p data-l="en">Design and communication, the basis for presenting content clearly and engagingly.</p></div>
+        <span class="kpi" data-l="de">Design</span><span class="kpi" data-l="en">Design</span>
+      </article>
+    </div>
+    <span class="sub-h">Engagement</span>
+    <div class="work">
+      <article class="case">
+        <span class="when" data-l="de">2025 – heute</span><span class="when" data-l="en">2025 – today</span>
+        <div><h3>Youth Associate</h3><div class="org">Amnesty International</div>
+          <p data-l="de">Einsatz für Menschenrechte, ein Grund, warum mir der verantwortungsvolle Umgang mit KI so wichtig ist.</p>
+          <p data-l="en">Working for human rights, one reason responsible AI matters so much to me.</p></div>
+        <span class="kpi b" data-l="de">Ethik</span><span class="kpi b" data-l="en">Ethics</span>
+      </article>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="faq"><div class="wrap">
+  <div class="side"><span class="label">FAQ</span></div>
+  <div class="stack">
+    <h2 data-l="de">Häufige Fragen.</h2>
+    <h2 data-l="en">Common questions.</h2>
+    <div class="faq">
+      <details><summary data-l="de">Ist die Use-Case-Studie wirklich kostenlos?</summary><summary data-l="en">Is the use case study really free?</summary>
+        <p data-l="de">Ja. Erstgespräch und Use-Case-Studie kosten nichts und verpflichten zu nichts. Kosten entstehen erst, wenn Sie sich entscheiden, ein Projekt mit mir umzusetzen. Den Preis dafür erfahren Sie vorher.</p>
+        <p data-l="en">Yes. The first call and the use case study cost nothing and commit you to nothing. Costs only arise if you decide to build a project with me, and you'll know the price beforehand.</p></details>
+      <details><summary data-l="de">Wir haben noch keine Erfahrung mit KI. Ist das ein Problem?</summary><summary data-l="en">We have no AI experience yet. Is that a problem?</summary>
+        <p data-l="de">Im Gegenteil, genau dafür bin ich da. Ich starte bei Ihren Abläufen, nicht bei der Technik, und erkläre alles so, dass Ihr Team mitreden und später selbst weiterarbeiten kann.</p>
+        <p data-l="en">Not at all, that's exactly what I'm here for. I start from your workflows, not the technology, and explain everything so your team can follow and carry on independently later.</p></details>
+      <details><summary data-l="de">Was ist mit Datenschutz und dem EU AI Act?</summary><summary data-l="en">What about data protection and the EU AI Act?</summary>
+        <p data-l="de">Beides denke ich von Anfang an mit. Wo nötig, setzen wir auf Lösungen, bei denen Ihre Daten in der EU bleiben, und klären, welche Pflichten der AI Act für Ihren Anwendungsfall mit sich bringt. Eine Rechtsberatung ersetzt das nicht.</p>
+        <p data-l="en">I factor both in from the start. Where needed we choose solutions that keep your data in the EU, and clarify which AI Act obligations apply to your use case. This doesn't replace legal advice.</p></details>
+      <details><summary data-l="de">Mit welchen KI-Modellen arbeiten Sie?</summary><summary data-l="en">Which AI models do you work with?</summary>
+        <p data-l="de">Unter anderem mit Claude, ChatGPT (inklusive Codex) und Gemini. Ich bin an keinen Anbieter gebunden und empfehle das Modell, das für Ihre Aufgabe, Ihr Budget und Ihre Datenschutzanforderungen am besten passt.</p>
+        <p data-l="en">Among others Claude, ChatGPT (including Codex) and Gemini. I'm not tied to any vendor and recommend the model that best fits your task, budget and data protection needs.</p></details>
+      <details><summary data-l="de">Kommen Sie auch an unsere Schule?</summary><summary data-l="en">Do you come to our school?</summary>
+        <p data-l="de">Ja. Ich bin in Wien und Graz vor Ort und komme für Workshops gerne an Schulen in ganz Österreich. Online-Formate sind ebenfalls möglich.</p>
+        <p data-l="en">Yes. I'm based in Vienna and Graz and happy to visit schools across Austria for workshops. Online formats are possible too.</p></details>
+    </div>
+  </div>
+</div></section>
+
+<section class="contact" id="kontakt"><div class="wrap">
+  <div class="left">
+    <span class="label" data-l="de">Kontakt</span><span class="label" data-l="en">Contact</span>
+    <h2 data-l="de">Wo könnte KI bei Ihnen <em>wirklich helfen</em>?</h2>
+    <h2 data-l="en">Where could AI <em>really help</em> you?</h2>
+    <p data-l="de">Ob Schule, Unternehmen oder Initiative: Schreiben Sie mir kurz, worum es geht. Ich melde mich innerhalb von zwei Werktagen und wir vereinbaren ein kostenloses Erstgespräch.</p>
+    <p data-l="en">School, business or initiative, drop me a short note about what you need. I'll reply within two working days and we'll set up a free intro call.</p>
+    <div class="direct">
+      <span class="label" data-l="de">Oder direkt</span><span class="label" data-l="en">Or directly</span>
+      <div class="row">
+        <span class="email" id="email">ertlejulius@gmail.com</span>
+        <button class="btn" id="copy" type="button"><span data-l="de">Kopieren</span><span data-l="en">Copy</span></button>
+      </div>
+      <div class="row">
+        <a class="btn ghost" href="https://www.linkedin.com/in/julius-ertle" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+        <span id="copied" role="status"></span>
+      </div>
+    </div>
+  </div>
+  <form class="ask" id="ask" novalidate>
+    <fieldset>
+      <legend data-l="de">Ich interessiere mich für</legend><legend data-l="en">I'm interested in</legend>
+      <div class="seg">
+        <input type="radio" name="topic" id="t-edu" value="Bildung / Workshop" checked><label for="t-edu"><span data-l="de">Workshop für Schule</span><span data-l="en">School workshop</span></label>
+        <input type="radio" name="topic" id="t-sme" value="KMU / Use-Case-Studie"><label for="t-sme"><span data-l="de">Use-Case-Studie für KMU</span><span data-l="en">SME use case study</span></label>
+        <input type="radio" name="topic" id="t-sov" value="KI-Souveränität / Kooperation"><label for="t-sov"><span data-l="de">Kooperation</span><span data-l="en">Partnership</span></label>
+      </div>
+    </fieldset>
+    <div class="two">
+      <label for="f-name"><span data-l="de">Name</span><span data-l="en">Name</span><input id="f-name" name="name" autocomplete="name" required></label>
+      <label for="f-org"><span data-l="de">Schule / Unternehmen</span><span data-l="en">School / company</span><input id="f-org" name="org" autocomplete="organization"></label>
+    </div>
+    <label for="f-msg"><span data-l="de">Worum geht es?</span><span data-l="en">What's it about?</span><textarea id="f-msg" name="msg" required></textarea></label>
+    <button class="btn" type="submit"><span data-l="de">Anfrage per E-Mail senden</span><span data-l="en">Send enquiry by email</span> <span aria-hidden="true">→</span></button>
+    <span id="formstatus" role="status"></span>
+  </form>
+</div></section>
+
+<footer><div class="wrap">
+  <span>© 2026 Julius Ertle · Wien &amp; Graz</span>
+  <span><a href="https://www.linkedin.com/in/julius-ertle" target="_blank" rel="noopener">LinkedIn</a> · <span class="ph">Impressum</span> · <span class="ph" data-l="de">Datenschutz</span><span class="ph" data-l="en">Privacy</span></span>
+</div></footer>
+
+<div class="mcta" id="mcta"><a class="btn primary" href="#kontakt"><span data-l="de">Kostenloses Erstgespräch anfragen</span><span data-l="en">Request a free intro call</span></a></div>
+
+<script>
+(() => {
+  // Language toggle (German default)
+  const de = document.getElementById('btn-de'), en = document.getElementById('btn-en');
+  const setLang = (l) => {
+    document.body.classList.toggle('en', l === 'en');
+    document.documentElement.lang = l;
+    de.setAttribute('aria-pressed', l === 'de'); en.setAttribute('aria-pressed', l === 'en');
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  };
+  de.addEventListener('click', () => setLang('de'));
+  en.addEventListener('click', () => setLang('en'));
+  let saved = 'de'; try { saved = localStorage.getItem('lang') || 'de'; } catch (e) {}
+  setLang(saved === 'en' ? 'en' : 'de');
+
+  // In-page links: scroll directly instead of navigating the frame
+  const nav = document.querySelector('nav.top');
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const target = id ? document.getElementById(id) : null;
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!target || id === 'top') { window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' }); return; }
+    const y = target.getBoundingClientRect().top + window.scrollY - nav.offsetHeight + 1;
+    window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' });
+  });
+
+  // Nav border + mobile CTA after the hero
+  const hero = document.getElementById('top'), mcta = document.getElementById('mcta'), contact = document.getElementById('kontakt');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+    const pastHero = hero.getBoundingClientRect().bottom < 0;
+    const atContact = contact.getBoundingClientRect().top < window.innerHeight;
+    mcta.classList.toggle('show', pastHero && !atContact);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // Copy email
+  const status = document.getElementById('copied');
+  const isEn = () => document.body.classList.contains('en');
+  document.getElementById('copy').addEventListener('click', () => {
+    const el = document.getElementById('email');
+    const done = () => { status.textContent = isEn() ? 'Copied' : 'Kopiert'; setTimeout(() => status.textContent = '', 1800); };
+    const fallback = () => {
+      const r = document.createRange(); r.selectNodeContents(el);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      status.textContent = isEn() ? 'Selected, press Ctrl/⌘ C' : 'Markiert, Strg/⌘ C drücken';
+    };
+    try { navigator.clipboard.writeText(el.textContent.trim()).then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  // Enquiry form: opens the visitor's email app with a prepared message
+  const form = document.getElementById('ask'), fstat = document.getElementById('formstatus');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim(), org = form.org.value.trim(), msg = form.msg.value.trim();
+    const topic = form.querySelector('input[name="topic"]:checked').value;
+    if (!name || !msg) { fstat.textContent = isEn() ? 'Please add your name and a short message.' : 'Bitte Name und eine kurze Nachricht eintragen.'; return; }
+    const subject = `Anfrage: ${topic}${org ? ' – ' + org : ''}`;
+    const body = `${msg}\n\n${name}${org ? '\n' + org : ''}`;
+    const href = `mailto:ertlejulius@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    fstat.textContent = isEn() ? 'Opening your email app. If nothing happens, write to ertlejulius@gmail.com.' : 'Ihr E-Mail-Programm öffnet sich. Falls nicht, schreiben Sie an ertlejulius@gmail.com.';
+    window.location.href = href;
+  });
+
+  // Vector field: a grid of short strokes steered by a slow interference field, nudged by the pointer.
+  const cv = document.getElementById('field');
+  const ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let W = 0, H = 0, dpr = 1, ink = '#000', hotA = '#550', hotB = '#a80', t = 0, raf = 0, visible = true;
+  const mouse = { x: -9999, y: -9999 };
+  const readColors = () => {
+    const cs = getComputedStyle(document.documentElement);
+    ink = cs.getPropertyValue('--field').trim();
+    hotA = cs.getPropertyValue('--accent').trim();
+    hotB = cs.getPropertyValue('--brass').trim();
+  };
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const step = W < 600 ? 22 : 28;
+    const len = step * 0.42;
+    ctx.lineCap = 'round';
+    for (let y = step / 2; y < H; y += step) {
+      for (let x = step / 2; x < W; x += step) {
+        const a = Math.sin(x * 0.0042 + t * 0.6) * Math.cos(y * 0.0057 - t * 0.45) + 0.5 * Math.sin((x + y) * 0.0021 + t * 0.3);
+        let ang = a * Math.PI;
+        const dx = x - mouse.x, dy = y - mouse.y, d2 = dx * dx + dy * dy;
+        const pull = Math.exp(-d2 / 26000);
+        if (pull > 0.01) ang = ang * (1 - pull) + Math.atan2(dy, dx) * pull;
+        const fade = W < 700 ? 0.55 : Math.min(1, Math.max(0.12, (x / W - 0.18) * 1.6));
+        const hot = Math.abs(a) > 1.28 || pull > 0.35;
+        ctx.strokeStyle = hot ? (a > 0 ? hotA : hotB) : ink;
+        ctx.globalAlpha = (hot ? 0.9 : 0.24) * fade;
+        ctx.lineWidth = hot ? 1.8 : 1;
+        const cx = Math.cos(ang) * len / 2, sy = Math.sin(ang) * len / 2;
+        ctx.beginPath(); ctx.moveTo(x - cx, y - sy); ctx.lineTo(x + cx, y + sy); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+  };
+  const loop = () => { if (visible) { t += 0.006; draw(); } raf = requestAnimationFrame(loop); };
+  const start = () => { cancelAnimationFrame(raf); if (reduce.matches) { t = 1.3; draw(); } else loop(); };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(hero);
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; if (reduce.matches) draw(); });
+  hero.addEventListener('pointerleave', () => { mouse.x = mouse.y = -9999; if (reduce.matches) draw(); });
+  new ResizeObserver(() => { resize(); draw(); }).observe(hero);
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColors(); draw(); });
+  new MutationObserver(() => { readColors(); draw(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  reduce.addEventListener('change', start);
+  readColors(); resize(); start();
+})();
+</script>
+</body>
+</html>
